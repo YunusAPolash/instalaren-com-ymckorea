@@ -1,0 +1,196 @@
+
+
+    <!-- Content Area Start From Here -->
+
+    <style>
+        .highlight-lside .hlight-box {
+            margin-bottom: 30px;
+            padding: 24px 30px;
+            background: #f4f5fa;
+            border-radius: 9px;
+        }
+    
+        .highlight-lside .hlight-box .hlight-first {
+            font-size: 19px;
+            line-height: 24px;
+            color: #333d4c;
+            font-weight: 800;
+        }
+    
+        .highlight-lside .hlight-box .hlight-second {
+            font-size: 14px;
+            line-height: 25px;
+            color: #333d4c;
+            margin: 0;
+        }
+    
+        .highlight-lside .hlight-box .icon {
+            font-size: 60px;
+            width: 70px;
+            text-align: center;
+        }
+    
+        .highlight-lside .hlight-box:nth-child(1) .icon {
+            color: #FFB645;
+        }
+    
+        .highlight-lside .hlight-box:nth-child(2) .icon {
+            color: #4da5ff;
+        }
+    
+        .highlight-lside .hlight-box:nth-child(3) .icon {
+            color: #16ca77;
+        }
+    </style>
+    
+    <div class="home-head">
+        <div class="home-head-bg"></div>
+        <div class="home-head-content">
+            <div class="container" style="position: relative;">
+                <div class="row">
+                    <div class="col-lg-7 col-12 d-none d-lg-block">
+                        <div class="head-images">
+                            <img src="https://cdn.mypanel.link/864fc7/3k29ur99smt8rj6b.png"  />
+                        </div>
+                        <div class="highlight-lside d-none d-md-block">
+                            <div class="hlight-box">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fal fa-phone-laptop icon"></i>
+                                    </div>
+                                    <div class="col">
+                                        <div>
+                                            <h4 class="hlight-first">장치 호환성</h4>
+                                            <p class="hlight-second">당사 사이트는 귀하가 사용하는 모든 데스크탑 및 모바일 장치와 완벽하게 호환됩니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hlight-box">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fal fa-credit-card icon"></i>
+                                    </div>
+                                    <div class="col">
+                                        <div>
+                                            <h4 class="hlight-first">보안 결제</h4>
+                                    <p class="hlight-second">저희 사이트의 안전한 은행 지불 활성화 덕분에 신용 카드나 우편환으로 지불할 수 있습니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hlight-box">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fal fa-smile icon"></i>
+                                    </div>
+                                    <div class="col">
+                                        <div>
+                                            <h4 class="hlight-first">양질의 서비스</h4>
+                                            <p class="hlight-second">저렴하고 질 좋은 서비스를 제공하여 만족도를 높이기 위해 항상 노력하고 있습니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="loginSide">
+                            <div class="login-box">
+                                <div class="lgb-img text-center">
+    
+                                </div>
+                                <div class="lgb-title text-center">
+                                    등록하려면 정보를 입력하세요
+                                </div>
+                                <div class="lgb-text text-center">
+                                    팔로워 및 좋아요와 같은 서비스를 사용하려면 가입하세요.
+                                </div>
+                                <form  action="" method="post">
+                                    {% if error %}
+                                    <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                      {{ errorMessage }}
+                                    </div>
+                                  {% endif %}
+                                  {% if success %}
+                                    <div class="alert alert-dismissible alert-success {% if site['rtl'] %} rtl-alert {% endif %}">
+                                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                      {{ successText }}
+                                    </div>
+                                  {% endif %}
+
+                                    <div class="fc-home mt-4">
+                                        <input type="text" id="username"  value="{{ data['login'] }}" name="RegistrationForm[login]" placeholder="{{ lang('signup.username') }}" >
+                                    </div>
+
+                                    {% if name_fields %}
+                                    <div class="fc-home">
+                                      <input type="text" value="{{ data['first_name'] }}" name="RegistrationForm[first_name]" placeholder="{{ lang('signup.firstname') }}">
+                                    </div>
+                                    <div class="fc-home">
+                                      <input type="text" value="{{ data['last_name'] }}" name="RegistrationForm[last_name]" placeholder="{{ lang('signup.lastname') }}">
+                                    </div>
+                                  {% endif %}
+
+                                    <div class="fc-home">
+                                        <input type="email" id="email" value="" name="RegistrationForm[email]" placeholder="{{ lang('signup.email') }}">
+                                    </div>
+                                    {% if skype_field %}
+                                        <div class="fc-home">
+                                            <input type="text" id="skype" value="" name="RegistrationForm[skype]" placeholder="{{ lang('signup.skype') }}">
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="fc-home">
+                                                <input type="password" id="password" name="RegistrationForm[password]" placeholder="{{ lang('signup.password') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="fc-home">
+                                                <input type="password" id="confirm" name="RegistrationForm[password_again]" placeholder="{{ lang('signup.confirm') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-4">
+                                        {% if site['captcha'] %}
+                                        {{ captchaCode }}
+                                      {% endif %}
+                                      {% if check_agreement %}
+                                      <div class="form-group">
+                                        <div class="checkbox">
+                                          <label>
+                                            <input type="checkbox" class="terms-accept-checkbox" name="RegistrationForm[termsofservice]"> {{ lang('signup.accept_terms_text') }} <a href="{{ page_url('terms') }}" target="_blank">{{ lang('terms.signup_checkbox') }}</a>
+                                          </label>
+                                        </div>
+                                      </div>
+                                    {% endif %}
+                                        <div class="container mt-3">
+                                        <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                                        <div class="lgb-btn row align-items-center">
+                                            <button class="btn btn-secondary btn-lg btn-block ml-auto" style="height: 60px" type="submit">
+                                                {{ lang('signup.button') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="text-center w-100 mt-2">
+                                    <a href="/" class="frgpass">
+                                        이미 계정이 있습니까? 로그인
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+
+    <!-- ### Content Area Start From Here -->
+
+    

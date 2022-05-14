@@ -1,0 +1,137 @@
+
+ <style>
+   pre {
+    display: block;
+    font-size: 87.5%;
+    color: #ffffff;
+    background: black;
+    border-radius: 20px;
+    padding: 20px;
+}
+ </style>
+ {% if user['auth'] %}
+  <div class="app-content">
+  {% else %} 
+     <div class="home-head outside">
+        <div class="home-head-bg"></div>
+     </div>
+     {% endif %}
+    <div {% if user['auth'] %} class="container-fluid" {% else %} class="container" {% endif %}>
+        <div class="hs-area mb-5">
+                            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <section class="app-side">
+                        <div class="row">
+                            <div class="col-lg-12 col-12 mb-5 mb-lg-0">
+                                <div class="d-card dc-dblue">
+                                    <div class="d-card-body" id="dc-body">
+                                        <div class="table-responsive">
+                                            <div class="center-big-content-block">
+                                                
+                                                      <h2 class="m-b-md">API</h2>
+                                                      <table class="table table-bordered">
+                                                        <tbody>
+                                                        <tr>
+                                                          <td class="width-40">HTTP Method</td>
+                                                          <td>POST</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>API URL</td>
+                                                          <td>{{site['protocol']}}://{{site['domain']}}/api/v2</td>
+                                                        </tr>
+                                                        {% if user['auth'] %}
+                                                          <tr>
+                                                            <td>API Key</td>
+                                                            <td>Get an API key on the <a href="{{site['protocol']}}://{{site['domain']}}/account">Account</a> page</td>
+                                                          </tr>
+                                                        {% endif %}
+                                                        <tr>
+                                                          <td>Response format</td>
+                                                          <td>JSON</td>
+                                                        </tr>
+                                                        </tbody>
+                                                      </table>
+                                            
+                                                      {% for method,methodDetails in methods %}
+                                                        <h4 class="m-t-md"><strong>{{methodDetails['title']}}</strong></h4>
+                                                        {% if 'add' == method %}
+                                                          {% if methodDetails['types']|length > 1 %}
+                                                            <p>
+                                                              <form class="form-inline">
+                                                                <div class="form-group">
+                                                                  <select class="form-control input-sm" id="service_type">
+                                                                    {% for type,label in methodDetails['types'] %}
+                                                                      <option value="{{type}}">{{label}}</option>
+                                                                    {% endfor %}
+                                                                  </select>
+                                                                </div>
+                                                              </form>
+                                                            </p>
+                                                             {% endif %}
+                                                          {% for type,parameters in methodDetails['parameters'] %}
+                                                            <div id="type_{{type}}" style="display:none;">
+                                                              <table class="table table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                  <th class="width-40">Parameters</th>
+                                                                  <th>Description</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for parameter,label in parameters %}
+                                                                  <tr>
+                                                                    <td>{{parameter}}</td>
+                                                                    <td>{{label}}</td>
+                                                                  </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                          {% endfor %}
+                                                        {% else %}
+                                                          <table class="table table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                              <th class="width-40">Parameters</th>
+                                                              <th>Description</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for parameter,label in methodDetails['parameters'] %}
+                                                              <tr>
+                                                                <td>{{parameter}}</td>
+                                                                <td>{{label}}</td>
+                                                              </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                          </table>
+                                                        {% endif %}
+                                            
+                                                        <p><strong>Example response</strong></p>
+                                            <pre>
+                                            {{methodDetails['examples']}}
+                                            </pre>
+                                                      {% endfor %}
+                                                      <a href="/example.txt" class="btn btn-default m-t" target="_blank">Example of PHP code</a>
+                                                    </div>
+                                                  </div>
+                                            
+                                    </div>
+                                    <!-- d-card end -->
+                                </div>
+                                <!-- col item end-->
+                            </div>
+                    </section>
+                </div>
+                <!-- page-content end -->
+            </div>
+            <!-- app-content -->
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+</div>
+

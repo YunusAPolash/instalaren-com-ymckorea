@@ -1,0 +1,65 @@
+<style>
+    .btn.btn-default.btn-xs {
+        background: #4da5ff;
+        color: #fff;
+        padding: 4px 3px!important;
+    }
+
+    .width-custom-30 {
+        max-width: 250px!important;
+        word-wrap: break-word;
+    }
+
+    .code-text{
+        color: #000000;
+        font-size: 100%!important
+    }
+
+    body.dark .code-text{
+        color: #fff!important;
+        font-size: 100%!important
+    }
+
+</style>
+<div class="app-content">
+    <!-- page-content -->
+    <div class="container-fluid">
+        <section class="app-side mt-4">
+            <div class="d-card">
+                <div class="d-card-body p0">
+                    <form {% if site['rtl'] %}class="rtl-form"{% endif %} method="post" action="{{ page['url'] }}">
+                        {% if 1 == success %}
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4>{{lang('massorder.message.success')}}</h4>
+                                {{lang('massorder.orders')}}: {{order['success']}}<br>
+                                {{lang('massorder.errors')}}: {{order['error']}}<br>
+                                <a href="{{ order['link'] }}" target="_blank">{{ lang('massorder.button.details') }}</a>
+                            </div>
+                        {%endif%}
+                        {% if error %}
+                            <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {% if order['link'] %}
+                                    <h4>{{ errorText }}</h4>
+                                    {{lang('massorder.orders')}}: {{order['success']}}<br>
+                                    {{lang('massorder.errors')}}: {{order['error']}}<br>
+                                    <a href="{{ order['link'] }}" target="_blank">{{ lang('massorder.button.details') }}</a>
+                                {% else %}
+                                    {{ errorText }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="links" class="control-label">{{ lang('massorder.label') }}</label>
+                            <textarea class="form-control" name="MassOrderForm[orders]" id="links" placeholder="{{ lang('massorder.placeholder') }}" style="height: 400px;"></textarea>
+                        </div>
+                        <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                        <button type="submit" class="btn btn-primary d-block w-100">{{ lang('massorder.button') }}</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div>
+    </div>

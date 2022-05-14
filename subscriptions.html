@@ -1,0 +1,184 @@
+<style>
+    .btn.btn-default.btn-xs {
+        background: #4da5ff;
+        color: #fff;
+        padding: 4px 3px!important;
+    }
+
+    .width-custom-30 {
+        max-width: 250px!important;
+        word-wrap: break-word;
+    }
+
+    .code-text{
+        color: #000000;
+        font-size: 100%!important
+    }
+
+    body.dark .code-text{
+        color: #fff!important;
+        font-size: 100%!important
+    }
+
+</style>
+<div class="app-content">
+    <!-- page-content -->
+    <div class="container-fluid">
+        <section class="app-side mt-4">
+            <div class="d-card">
+                <div class="d-card-body p0">
+                    <div class="row">
+                        <div class="col-md-9 col-12 services-text">
+                            <h3>Subscriptions</h3>
+                            <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png" />
+                        </div>
+                        <div class="col-md-3 col-12 services-text">
+                            <form action="{{ page['url'] }}" method="get" id="history-search">
+                                <div class="dfb-search">
+                                    <input type="text" name="search" value="" placeholder="검색 순서" class="dfb-input">
+                                    <button type="submit" class="dfb-submit">
+                                        <i class="fal fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="orders-btn mb-4 mt-5">
+                            <ul class="nav nav-pills orderNav d-flex justify-content-between">
+                                <li>
+                                    <a {% if 'all' == status %}class="active"{% endif %} href="{{ page['url'] }}"><i class="fas fa-fire-alt mr-1"></i>{{ lang('subscriptions.status.all') }}</a>
+                                </li>
+                                <li>
+                                    <a  {% if 'active' == status %}class="active"{% endif %} href="{{ page['url'] }}/active"><i class="fas fa-spinner mr-1"></i> {{ lang('subscriptions.status.active') }}</a>
+                                </li>
+                                <li>
+                                    <a {% if 'paused' == status %}class="active"{% endif %} href="{{ page['url'] }}/paused"><i class="fas fa-hourglass-half mr-1"></i>{{ lang('subscriptions.status.paused') }}</a>
+                                </li>
+                                <li>
+                                    <a {% if 'completed' == status %}class="active"{% endif %} href="{{ page['url'] }}/completed"><i class="fas fa-badge-check mr-1"></i>{{ lang('subscriptions.status.completed') }}</a>
+                                </li>
+                                <li>
+                                    <a {% if 'expired' == status %}class="active"{% endif %} href="{{ page['url'] }}/expired"><i class="far fa-check-circle mr-1"></i>{{ lang('subscriptions.status.expired') }}</a>
+                                </li>
+                                <li>
+                                    <a {% if 'canceled' == status %}class="active"{% endif %} href="{{ page['url'] }}/canceled"><i class="fas fa-mouse-pointer mr-1"></i>{{ lang('subscriptions.status.canceled') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th>{{ lang('subscriptions.id') }}</th>
+                                        <th>{{ lang('subscriptions.username') }}</th>
+                                        <th>{{ lang('subscriptions.quantity') }}</th>
+                                        <th>{{ lang('subscriptions.new_posts') }}</th>
+                                        <th>{{ lang('subscriptions.old_posts') }}</th>
+                                        <th>{{ lang('subscriptions.delay') }}</th>
+                                        <th>{{ lang('subscriptions.service') }}</th>
+                                        <th>{{ lang('subscriptions.status') }}</th>
+                                        <th>{{ lang('subscriptions.created') }}</th>
+                                        <th>{{ lang('subscriptions.updated') }}</th>
+                                        <th>{{ lang('subscriptions.expiry') }}</th>
+                                        <th></th>
+                                      </tr>
+                                </thead>
+                                <tbody>
+                                  
+                                    {% for order in orderList %}
+                                    <tr>
+                                        <td>{{ order['id'] }}</td>
+                                        <td class="link">{{ order['link'] }}</td>
+                                        <td class="nowrap">{% if order['quantity_min'] == order['quantity_max'] %}{{ order['quantity_max']}}{% else %}{{ order['quantity_min'] }}-{{ order['quantity_max'] }}{% endif %}</td>
+                                        <td class="nowrap">
+                                        {% if order['current_count'] %}
+                                            <a href="{{ page_url('orders') }}?subscription={{ order['id'] }}">{{ order['current_count'] }}</a>
+                                        {% else %}
+                                            {{ order['current_count'] }}
+                                                        {% endif %}
+                                        / {% if order['quantity'] == 0 %}&#8734;{% else %}{{ order['quantity'] }}{% endif %}</td>
+                                        <td class="nowrap">
+                                        {% if order['current_old_posts'] %}
+                                            <a href="{{ page_url('orders') }}?subscription={{ order['id'] }}&likes_spread=1">{{ order['current_old_posts'] }}</a>
+                                        {% else %}
+                                            {{ order['current_old_posts'] }}
+                                        {% endif %}
+                                        / {{ order['old_posts'] }}</td>
+                                        <td>{{ order['delay'] }}</td>
+                                        <td>{{ order['service'] }}</td>
+                                        <td>{{ order['status_name'] }}</td>
+                                        <td><span class="nowrap">{{ order['date_created'] }}</span></td>
+                                        <td><span class="nowrap">{{ order['date_updated'] }}</span></td>
+                                        <td><span class="nowrap">{{ order['date_expiry'] }}</span></td>
+                                        <td>
+                                        {% if order['status'] == 1 or order['status'] == 0 %}
+                                            <a href="{{ page['url'] }}/stop/{{order['id']}}" class="btn btn-default btn-xs">{{ lang('subscriptions.button.cancel') }}</a>
+                                        {% endif %}
+                                        {% if order['status'] == 2 %}
+                                            <a href="{{ page['url'] }}/resume/{{order['id']}}" class="btn btn-primary btn-xs">{{ lang('subscriptions.button.unpause') }}</a>
+                                        {% endif %}
+                                        {% if order['status'] == 3 or order['status'] == 4 or order['status'] == 5 %}
+                                            <a href="{{ page['url'] }}/reorder/{{order['id']}}" class="btn btn-primary btn-xs">{{ lang('subscriptions.button.reorder') }}</a>
+                                        {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                 
+      {% if pagination['count'] > 100 %}
+      <ul class="pagination {% if site['rtl'] %} rtl-pagination {% endif %}">
+        {% if pagination['current'] != 1 %}
+          <li>
+            <a href="{{ page['url'] }}/{{ status }}/{{ pagination['last'] }}{% if search %}?search={{ search }}{% endif %}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        {% endif %}
+
+        {% set r, l = 3, 3 %}
+
+        {% if pagination['current'] == 1 %}
+          {% set r = 6 %}
+        {% endif %}
+
+        {% if pagination['current'] == 2 %}
+          {% set r = 5 %}
+        {% endif %}
+
+        {% if pagination['current'] >= pagination['pages'] %}
+          {% set l = 5 %}
+        {% endif %}
+
+        {% for i in 1..ceil(pagination['pages']) %}
+          {% if i >= (pagination['current']-l) and i <= (pagination['current']+r) %}
+            <li{% if i == pagination['current'] %} class="active"{% endif %}><a href="{{ page['url'] }}/{{ status }}/{{i}}{% if search %}?search={{ search }}{% endif %}">{{i}}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if pagination['current'] < pagination['pages'] %}
+          <li>
+            <a href="{{ page['url'] }}/{{ status }}/{{ pagination['next'] }}{% if search %}?search={{ search }}{% endif %}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        {%endif%}
+      </ul>
+    {% endif %}
+                    </div>
+                </div>
+            </div>
+                    </section>
+    </div>
+    <div>
+        <script>
+            function copywalletid(element) {
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val($(element).text()).select();
+                document.execCommand("copy");
+                $temp.remove();
+            }
+
+        </script>
+    </div>

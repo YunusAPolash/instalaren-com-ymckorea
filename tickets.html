@@ -1,0 +1,126 @@
+ <!-- Content Area Start From Here -->
+    <div class="app-content">
+        <!-- page-content -->
+        <div class="container-fluid">
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <section class="app-side">
+                        <div class="row">
+                            <div class="col-md-12 col-12 mb-5 services-text">
+                                <h3>지원 요청</h3>
+                                <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png">
+                                <p>여보세요 <strong>{{user['username']}}</strong>, 지원이 필요한 경우 지원 요청을 작성할 수 있습니다.</p>
+                            </div>
+                            <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+                                <div class="d-card dc-dblue">
+                                    <div class="d-card-body" id="dc-body">
+                                        <form {% if site['rtl'] %}class="rtl-form"{% endif %} method="post" action="" id="ticketsend">
+                                            <div class="alert alert-dismissible alert-danger ticket-danger {% if site['rtl'] %} rtl-alert {% endif %}" style="display: none">
+                                              <button type="button" class="close">&times;</button>
+                                              <div></div>
+                                            </div>
+                                          <div class="form-group">
+                                            <label for="subject" class="control-label">{{ lang('tickets.subject') }}</label>
+                                            <input type="text" class="form-control" id="subject" name="TicketForm[subject]">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="message" class="control-label">{{ lang('tickets.message') }}</label>
+                                            <textarea class="form-control" rows="7" id="message" name="TicketForm[message]" style="height: 300px;"></textarea>
+                                          </div>
+                                          <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                                          <button type="submit" class="btn btn-primary d-block w-100">{{ lang('tickets.button') }}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- d-card end -->
+                            </div>
+                            <!-- col item end-->
+                            <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+                                <div class="d-card ticket-card">
+                                    <div class="col-12 text-center mb-3">
+                                        내 이전 요청
+                                    </div>
+                                    <div class="d-card-body" id="dc2-body" style="overflow-y: auto;max-height: 500px">
+    
+                                        <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{{ lang('tickets.id') }}</th>
+                                                            <th>{{ lang('tickets.subject') }}</th>
+                                                            <th>{{ lang('tickets.status') }}</th>
+                                                            <th class="nowrap">{{ lang('tickets.updated') }}</th>
+                                                          </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for ticket in ticketList %}
+                                                        <tr>
+                                                          <td>{{ ticket['id'] }}</td>
+                                                          {% if ticket['new'] == 1 %}
+                                                            <td><a href="{{ page_url('viewticket') }}/{{ ticket['id'] }}"><strong>{{ ticket['theme'] }}</strong></a></td>
+                                                          {% else %}
+                                                            <td><a href="{{ page_url('viewticket') }}/{{ ticket['id'] }}">{{ticket['theme']}}</a></td>
+                                                          {% endif %}
+                                                          <td>{{ ticket['status'] }}</td>
+                                                          <td><span class="nowrap">{{ ticket['time'] }}</span></td>
+                                                        </tr>
+                                                      {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                                                </div>
+                                                                                {% if pagination['count'] > 50 %}
+                                                                                <div class="nav-pills">
+                                                                                  <ul class="pagination {% if site['rtl'] %} rtl-pagination {% endif %}">
+                                                                                    {% if pagination['current'] != 1 %}
+                                                                                      <li>
+                                                                                        <a href="{{ page['url'] }}/{{ pagination['last'] }}" aria-label="Previous">
+                                                                                          <span aria-hidden="true">&laquo;</span>
+                                                                                        </a>
+                                                                                      </li>
+                                                                                    {% endif %}
+                                                                        
+                                                                                    {% set r, l = 3, 3 %}
+                                                                        
+                                                                                    {% if pagination['current'] == 1 %}
+                                                                                      {% set r = 6 %}
+                                                                                    {% endif %}
+                                                                        
+                                                                                    {% if pagination['current'] == 2 %}
+                                                                                      {% set r = 5 %}
+                                                                                    {% endif %}
+                                                                        
+                                                                                    {% if pagination['current'] >= pagination['pages'] %}
+                                                                                      {% set l = 5 %}
+                                                                                    {% endif %}
+                                                                        
+                                                                                    {% for i in 1..ceil(pagination['pages']) %}
+                                                                                      {% if i >= (pagination['current']-l) and i <= (pagination['current']+r) %}
+                                                                                        <li{% if i == pagination['current'] %} class="active"{% endif %}><a href="{{ page['url'] }}/{{i}}">{{i}}</a></li>
+                                                                                      {% endif %}
+                                                                                    {% endfor %}
+                                                                        
+                                                                                    {% if pagination['current'] < pagination['pages'] %}
+                                                                                      <li>
+                                                                                        <a href="{{ page['url'] }}/{{ pagination['next'] }}" aria-label="Next">
+                                                                                          <span aria-hidden="true">&raquo;</span>
+                                                                                        </a>
+                                                                                      </li>
+                                                                                    {% endif %}
+                                                                                  </ul>
+                                                                                </div>
+                                                                              {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                </section>
+            </div>
+            <!-- page-content end -->
+        </div>
+        <!-- app-content -->
+    </div>
+    </div>
+    
+    </div>
+    

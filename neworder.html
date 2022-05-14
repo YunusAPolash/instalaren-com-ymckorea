@@ -1,0 +1,260 @@
+<style>
+        .form-group .input-group .input-group-text {
+            background: #FFAB5A;
+            color: #fff;
+            outline: none;
+            border: none;
+            text-align: center!important;
+            width: 40px;
+        }
+    
+        .dropdown .fas.fa-headphones {
+            background: #528c41;
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-size: 17px;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .dropdown .fab.fa-imdb {
+            background: #ffd401;
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-size: 20px;
+            -webkit-text-fill-color: transparent;
+            margin-right: 10px;
+        }
+    
+        .dropdown .fas.fa-ticket-alt {
+            background: #897bd4;
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-size: 20px;
+            -webkit-text-fill-color: transparent;
+            margin-right: 10px;
+        }
+    
+        .life_x{
+            background: #54a9fe;
+            color: #fff;
+            padding: 5px;
+            border-radius: 25px;
+        }
+    
+    
+        .life_icon{
+            color: #54a9fe;
+            font-size: 20px;
+    
+        }
+    
+        body.dark .life_icon{
+            color: #6e89b7;
+            font-size: 20px;
+    
+        }
+    
+        body.dark .life_x{
+    
+            background: #13151e;
+            color: #6e89b7;
+            padding: 5px;
+            border-radius: 25px;
+        }
+    
+    
+        @media screen and (max-width: 768px) {
+    
+            .av_time{
+                text-align: left!important;
+                margin-top: 10px;
+    
+            }
+    
+        }
+    
+        @media screen and (min-width: 768px) {
+    
+            .av_time{
+                text-align: right!important;
+    
+            }
+    
+        }
+    </style>
+    
+    <!-- app-header -->
+    <div class="app-content">
+        <!-- page-content -->
+        <div class="container-fluid">
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <section class="app-side">
+                        <div class="row">
+                            <div class="col-lg-5 col-12 mb-5 mb-lg-0">
+                                <div class="d-card dc-dblue">
+                                    <div class="d-card-body" id="dc-body">
+                                        <h3 class="pg-head">주문</h3>
+                                        <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png" />
+                                        <form action="{{ page['url'] }}" method="post" id="order-form">
+                                            {% if error %}
+                                            <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                              {{ errorMessage }}
+                                            </div>
+                                          {% endif %}
+                                
+                                          {% if 1 == success %}
+                                            <div class="alert alert-success alert-dismissible" role="alert">
+                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                              <h4>{{lang('neworder.message.success')}}</h4>
+                                              {{lang('neworder.id')}}: {{order['id']}}<br>
+                                              {{lang('neworder.service')}}: {{order['service']}}
+                                              <br>
+                                              {{lang('neworder.link')}}: {{order['link']}}<br>
+                                              {{lang('neworder.quantity')}}: {{order['quantity']}}<br>
+                                              {{ lang('neworder.charge') }}: {% if order.converted %} <span data-toggle="tooltip" data-placement="top" title="{{ order.original_charge }}">{{ order['charge'] }}</span> {% else %} {{ order['charge'] }} {% endif %}<br>
+                                              {{ lang('neworder.balance') }}: {% if order.converted %} <span data-toggle="tooltip" data-placement="top" title="{{ order.original_balance }}">{{ order['balance'] }}</span> {% else %} {{ order['balance'] }} {% endif %}<br>
+                                            </div>
+                                          {% endif %}
+                                
+                                          {% if 2 == success %}
+                                            <div class="alert alert-success alert-dismissible" role="alert">
+                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                              <h4>{{lang('neworder.message.success')}}</h4>
+                                              {{lang('neworder.subscription_id')}}: {{order['id']}}<br>
+                                              {{lang('neworder.service')}}: {{order['service']}}
+                                              <br>
+                                              {{lang('neworder.username')}}: {{order['link']}}<br>
+                                              {{lang('neworder.quantity')}}:
+                                              {% if order['quantity_min'] == order['quantity_max'] %}
+                                                {{order['quantity_max']}}
+                                              {% else %}
+                                                {{order['quantity_min']}}-{{order['quantity_max']}}
+                                              {% endif %}
+                                              <br>
+                                              {{lang('neworder.new_posts')}}:
+                                              {% if 0 == order['posts'] %}
+                                                &#8734;
+                                              {% else %}
+                                                {{order['posts']}}
+                                              {% endif %}
+                                              <br>
+                                              {{lang('neworder.delay')}}:
+                                              {{order['delay']}}
+                                              <br>
+                                            </div>
+                                          {% endif %}
+
+                                           <div class="form-group mb-4 mt-3">
+                                                    <label for="orderform-category" class="control-label">{{ lang('neworder.category') }}</label>
+                                                    
+                                                    <select class="form-control optmain" id="orderform-category" name="OrderForm[category]">
+                                                        {% for category in extended_categories %}
+                                                        <option value="{{ category.id }}"  selected >{{ category.name }}</option>
+                                                        {% endfor %}                                                     
+                                                    </select>
+                                                </div>
+                                            <!-- form-group end -->
+
+                                            <div class="form-group mb-4">
+                                                <label for="service" class="control-label">{{ lang('neworder.service') }}</label>
+                                                <select id="orderform-service" id="service" class="form-control optmain" name="OrderForm[service]">
+                                                </select>
+                                            </div>
+    
+                                            <!-- form-group end -->
+                                            <div class="form-group hidden fields" id="service_description">
+                                                <label>
+                                                    {{ lang('neworder.description') }}
+                                                </label>
+                                                <div class="panel-body border-solid border-rounded" id="service_description">
+                                                    {{service['description']}} 
+                                                </div>
+                                            </div>
+    
+                                            <!-- form-group end -->
+                                            <div id="fields"></div>
+    
+                                            <div class="form-group mb-4">
+                                                <label>
+                                                    {{ lang('neworder.charge') }}
+                                                </label>
+                                                <div class="input-group">
+                                                    <div class="input-group-text text-center" style="    border-radius: 5px 0px 0px 5px!important;">
+                                                        <i class="far fa-coin"></i>
+                                                    </div>
+                                                    <input class="form-control" type="text" id="charge" value="{{ order['charge'] }}" readonly>
+                                                </div>
+                                            </div>
+                                            <!-- form-group end -->
+                                            
+                                            <input type="hidden" name="_csrf" value="{{ csrftoken }}">
+                                                                            
+                                        {% if check_agreement %}
+                                        <div class="form-group">
+                                            <label class="control-label terms">
+                                            <input type="checkbox"  name="OrderForm[termsofservice]" class="terms-accept-checkbox" value="1" id="terms" {{data['termsofservice'] ? 'checked' : ''}}> {{lang('signup.accept_terms_text')}}
+                                            <a  href="{{ page_url('terms') }}" target="_blank">{{ lang('terms.signup_checkbox') }}</a>
+                                            </label>
+                                        </div>
+                                        {%endif%}
+                                        
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block mb-4">{{ lang('neworder.button') }}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- d-card end -->
+                            </div>
+                            <!-- col item end-->
+                            <div class="col-lg-4 col-12 mb-5 mb-lg-0">
+                                <div class="d-card">
+                                    <h3 class="pg-head">공지사항</h3>
+                                    <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png" />
+                                    <div class="d-card-body news-card" id="dc2-body">
+                                        <div class="news mb-2">
+                                            <div class="news-icon">
+                                                <i class="fas fa-bullhorn"></i>
+                                            </div>
+                                            <span>10.05.2022</span>
+                                            <h3>새로운 인터페이스</h3>
+                                            <p>새로운 인터페이스가 활성화되어 더 쉽고 빠르게 주문할 수 있습니다.</p>
+                                        </div>
+    
+    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-12 mb-5 mb-lg-0 mt-4">
+                                <div class="d-card dc-dblue">
+                                    <div class="d-card-body" id="dc2-body">
+                                        <div class="widget green mb-2">
+                                            <h2 class="d-flex justify-content-center align-items-center"><img class="mr-2" src="https://cdn.mypanel.link/bfc127/zybxmkk39swu3d2i.png" /> <span>현재의 균형</span></h2>
+                                            <h3>{{user['balance']}}</h3>
+                                        </div>
+
+                                        <div class="widget purple mb-2">
+                                            <h2 class="d-flex justify-content-center align-items-center"><img class="mr-2" src="https://cdn.mypanel.link/bfc127/qmgduhhekb4mxawu.png" /> <span>사용 잔액</span></h2>
+                                            <h3>{{user['spent']}}</h3>
+                                        </div>
+
+                                        <div class="widget pink mb-2">
+                                            <h2 class="d-flex justify-content-center align-items-center"><img class="mr-2" src="https://cdn.mypanel.link/bfc127/90h8qfgsfofokafg.png" /> <span>총 주문</span></h2>
+                                            <h3>24862</h3>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- page-content end -->
+            </div>
+            <!-- app-content -->
+        </div>
+    </div>
+    </div>
+
+    <!-- ### Content Area Start From Here -->

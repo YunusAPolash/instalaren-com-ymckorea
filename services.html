@@ -1,0 +1,187 @@
+<style>
+    .app-side {padding: 15px}
+    .services-list {
+    background: #f8f9fe;
+    max-width: 600px;
+    margin: auto;
+    padding: 1px 15px;
+    border-radius: 25px;
+    }
+    .services-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    }
+    .services-list ul li {
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    }
+    body.dark .services-list {
+    background: #14151f;
+    max-width: 600px;
+    margin: auto;
+    padding: 1px 15px;
+    border-radius: 25px;
+    }
+    .dj-search {
+    position: relative;
+    }
+    .dj-search input {
+    position: relative;
+    height: 40px;
+    border-radius: 0;
+    background: rgb(248 249 254);
+    border: none;
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    color: #333d4c;
+    padding: 0 10px;
+    -webkit-transition: .2s ease;
+    transition: .2s ease;
+    }
+    .dj-search .dj-ord-submit {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    background: #4a5cf6;
+    color: #fff;
+    }
+    body.dark .dj-search input {
+    position: relative;
+    height: 40px;
+    border-radius: 0;
+    background: rgb(20 21 29);
+    border: none;
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    color: #ffffff;
+    padding: 0 10px;
+    -webkit-transition: .2s ease;
+    transition: .2s ease;
+    }
+ </style>
+ {% if user['auth'] %}
+ <div class="app-content">
+ {% else %} 
+    <div class="home-head outside">
+       <div class="home-head-bg"></div>
+    </div>
+    {% endif %}
+    <div {% if user['auth'] %} class="container-fluid" {% else %} class="container" {% endif %}>
+        <section class="app-side mt-4">
+            <div class="d-card">
+                <div class="d-card-body p0">
+                    <div class="row">
+                    <div class="col-md-5 col-12 services-text">
+                        <h3>현재 가격표</h3>
+                        <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png" />
+                        <p>표시된 서비스 요금은 1,000개 단위입니다. 각 서비스의 최소 및 최대 금액이 지정됩니다.</p>
+                    </div>
+                    </div>
+                    <!-- SEARCH START -->
+                    <div>
+                    <div class="dj-search">
+                        <input type="text" id="serv-inp" class="dj-input serv-input" placeholder="찾고 있는 서비스를 입력하세요...">
+                        <button type="submit" class="dj-ord-submit">
+                        <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    </div>
+                    <!-- SEARCH CLOSE -->
+                    <div class="dash-list mt-3">
+                    <table id="serv-table" class="table results table-mobile-cards">
+                        <thead>
+                            <tr>
+                                <th>{{ lang('services.id') }}</th>
+                                <th>{{ lang('services.name') }}</th>
+                                <th>{{ lang('services.rate') }}</th>
+                                <th>{{ lang('services.min') }}</th>
+                                <th>{{ lang('services.max') }}</th>
+                                {% if site['average_time'] %}
+                                <th>{{ lang('services.average_time') }}</th>
+                                {% endif %}
+                                {% if serviceDescription %}
+                                <th class="text-center"><i style="font-size: 20px" class="fas fa-info-circle"></i></th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in serviceCategoryList %}
+                            {% if category['name'] %}
+                            <tr class="services-header">
+                                <td colspan="7">
+                                <div class="services-title pm-ikon">
+                                    {{ category['name'] }}
+                                </div>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% for service in category['services'] %}
+                            <tr class="table-mobile-card serviceData">
+                                <td data-title="{{ lang('services.id') }}">{{ service['id'] }}</td>
+                                <td data-title="{{ lang('services.name') }}">{{ service['name'] }}</td>
+                                <td data-title="{{ lang('services.rate') }}">
+                                {% if converted %}
+                                <span data-toggle="tooltip" data-placement="top" title="{{ service.original_rate }}">{{ service.rate }}</span>
+                                {% else %}
+                                {{ service.rate }}
+                                {% endif %}
+                                </td>
+                                <td data-title="{{ lang('services.min') }}" class="text-success">{{ service['min'] }}</td>
+                                <td data-title="{{ lang('services.max') }}" class="text-danger">{{ service['max'] }}</td>
+                                {% if site['average_time'] %}
+                                <td data-title="{{ lang('services.average_time') }}">{{ service['average_time'] }}</td>
+                                {% endif %}
+                                {% if serviceDescription %}
+                                <td class="text-center">
+                                <a class="sDetayBtn" data-toggle="modal" data-target="#servisDetay{{ service['id'] }}">
+                                <i class="fal fa-bars"></i>
+                                </a>
+                                <div class="modal fade" id="servisDetay{{ service['id'] }}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <h4 class="modal-title">{{ service['name'] }}</h4>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <div class="modal-body" id="description">
+                                            {{ service['description'] }}
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫다</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <!-- dash-list -->
+            </div>
+        </section>
+    </div>
+
+ </div>
+ <!-- ### Content Area Start From Here -->

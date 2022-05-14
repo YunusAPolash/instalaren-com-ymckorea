@@ -1,0 +1,418 @@
+
+
+    <!-- Content Area Start From Here -->
+
+    <style>
+        .homebox-4 .blog-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 5!important;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    </style>
+    
+    <div class="home-head">
+        <div class="home-head-bg"></div>
+        <div class="home-head-content">
+            <div class="container" style="position: relative;">
+                <div class="row">
+                    <div class="col-lg-8 col-12 d-none d-lg-block">
+                        <div class="head-images">
+                            <img src="https://cdn.mypanel.link/bfc127/8u95o8ko1704koxu.png" title="Sns4u.kr" alt="Sns4u.kr" class="img-fluid" />
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="loginSide">
+                            <div class="login-box">
+                                <div class="lgb-img text-center">
+    
+                                </div>
+                                <div class="lgb-title text-center">
+                                    어서 오십시오
+                                </div>
+                                <div class="lgb-text text-center mb-2">
+                                    사이트 회원으로 로그인합니다.
+                                </div>
+                                <form  method="post" action="{{ page['url'] }}">
+                                    {% if error %}
+                                        <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        {{ errorMessage }}
+                                        </div>
+                                    {% endif %}
+                            
+                                    {% if success %}
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        {{successMessage}}
+                                        </div>
+                                    {% endif %}
+
+
+                                    <div class="fc-home mt-4">
+                                    <input type="text" id="username" name="LoginForm[username]" placeholder="{{ lang('signup.username') }}">
+                                </div>
+                                <div class="fc-home">
+                                    <input type="password" id="password" name="LoginForm[password]" placeholder="{{lang('signup.password')}}">
+                                </div>
+                                <div class="form-row mt-2">
+                                    <div class="col-6 py-2 mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" name="LoginForm[remember]" value="1" id="remember">
+                                            <label class="form-check-label" for="remember">{{lang('signin.remember_me')}}</label>
+                                        </div>
+                                    </div>
+                                    {% if site['resetPassword'] %}
+                                    <div class="col-6 py-2 text-right">
+                                        <a href="{{ page_url('resetpassword') }}" class="frgpass">{{ lang('signin.reset_password') }}</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                    <div class="container mt-3">
+                                        {% if captcha %}
+                                        {{ captchaCode }}
+                                      {% endif %}
+
+                                   <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                                    <div class="lgb-btn row align-items-center">
+                                        <button class="btn btn-secondary btn-lg ml-auto d-block w-100" type="submit">
+                                            <i class="fal fa-sign-out"></i> {{ lang('signin.button') }}
+                                        </button>
+                                    </div>
+                                </div>
+                                </form>
+                                {% if registration %}
+                                     <div class="text-center mt-4 pt-3 d-none d-md-block">
+                                        <a href="{{ page_url('signup') }}" class="frgpass">
+                                            {{ lang('signin.text') }}
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <section class="homebox-1 mb-5">
+        <div class="container">
+            <div class="hs-head">
+                <h1>어떻게 작동합니까</h1>
+                <small>아래 단계에 따라 주문을 생성할 수 있습니다.</small>
+            </div>
+    
+            <div class="row mt-5">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                       <div class="fe_icon">
+                        <i class="fas fa-user-chart"></i>
+                       </div>
+                        <h3 class="pt-3 pb-2">등록하다</h3>
+                        <p>시스템에 등록 또는 로그인</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                        <div class="fe_icon">
+                            <i class="fas fa-laptop-house"></i>
+                           </div>
+                        <h3 class="pt-3 pb-2">부하 분산</h3>
+                        <p>안전한 결제 시스템으로 결제</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                        <div class="fe_icon">
+                            <i class="far fa-shopping-bag"></i>
+                           </div>
+                        <h3 class="pt-3 pb-2">주문하다</h3>
+                        <p>나에게 맞는 서비스로 주문하세요</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                        <div class="fe_icon">
+                            <i class="far fa-thumbs-up"></i>
+                           </div>
+                        <h3 class="pt-3 pb-2">오르다</h3>
+                        <p>승천을 즐기십시오</p>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+    
+    <section class="homebox-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mr-auto">
+                    <div class="row">
+                        <div class="col-lg-7 ha-graph">
+                            <div class="wu-img">
+                                <a data-fancybox="" href="/" class="play-btn mb-4" data-vbtype="video" data-autoplay="true"><img src="https://cdn.mypanel.link/egmvxo/l2uhnohx1c5qrcwn.png" class="img-fluid" title="" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="wu-text">
+                                <h2>왜 sn4u야?</h2>
+                                <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png" />
+                                <div class="texts mt-2">
+                                    {{site['title']}} 은(는) 많은 소셜 미디어 플랫폼, 특히 Instagram, Twitter, Facebook 및 YouTube에 서비스를 제공합니다. 서비스는 거의 도핑 효과를 일으키고 현상이 되는 길에서 당신을 정상으로 데려갈 것입니다. 우리가 제공하는 서비스는 매우 저렴하지만 최대 용량을 제공합니다. 대화형 인스타그램 팔로어 패키지를 사용하는 것이 좋습니다. 예약 주문 기능 덕분에 게시물에 자연스러운 모습을 추가할 수 있습니다. 우리는 수년간 소셜 미디어 업계에서 서비스를 제공해 왔으며, 저희에게 연락하여 더 많은 상호 작용을 얻을 수 있는 방법을 찾을 수 있습니다.
+                                </div>
+                                <a href="/signup" class="btn mt-4 float-right">
+                                    지금 등록하세요
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="homebox-1 mb-5">
+        <div class="container">
+            <div class="hs-head">
+                <h1>Services</h1>
+                <small>모든 SNS 서비스를 제공하고 있습니다.</small>
+            </div>
+    
+            <div class="row mt-5">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                        <img src="https://cdn.mypanel.link/egmvxo/xrn1k0rc9iu50odp.png" alt="인스타그램 Services">
+                        <h3 class="pt-3 pb-2">인스타그램</h3>
+                        <p>계정 좋아요, 팔로워, <br>
+                            댓글 등 모든 서비스를 24시간 <br>
+                            관리해드립니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                        <img src="https://cdn.mypanel.link/egmvxo/9d2fr1ntj64h7zuy.png" alt="페이스북 Services">
+                        <h3 class="pt-3 pb-2">페이스북</h3>
+                        <p>페이스북 계정 좋아요, 팔로워, <br>
+                            페이지 좋아요 등 모든 서비스를 <br>
+                            24시간 관리해드립니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                        <img src="https://cdn.mypanel.link/egmvxo/ltie0108jqse3kp9.png" alt="유튜브 Services">
+                        <h3 class="pt-3 pb-2">유튜브</h3>
+                        <p>동영상 좋아요, <br>
+                            조회수, 채널 구독자를 <br>
+                            늘릴 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="ht-box">
+                        <div class="ht-box-overlay"></div>
+                        <img src="https://cdn.mypanel.link/egmvxo/657a4zjgoh9porn0.png" alt="기타 Services">
+                        <h3 class="pt-3 pb-2">기타</h3>
+                        <p>트위터, 틱톡 등 그외 <br>
+                            SNS 계정의 상품을 <br>
+                            24시간 관리해드립니다.</p>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+    <section class="homebox-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mr-auto">
+                    <div class="row">
+                        <div class="col-lg-5 col-12">
+                            <div class="wu-text">
+                                <h2>소셜 미디어 서비스 제공자.</h2>
+                                <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png" />
+                                <div class="texts mt-2 mb-3">
+                                    소셜 미디어 프랜차이즈 패널로 활동하는 {{site['name']}}은(는) 수년 동안 소셜 미디어에서 팔로워, 조회수 및 좋아요와 같은 많은 서비스를 자신 있고 품질로 판매해 왔습니다. 우리는 Social Media Franchise Panel 하면 가장 먼저 떠오르는 길로 나날이 발전하고 있습니다. 우리는 이 모든 것을 우리의 소중한 회원들에게 빚지고 있습니다. 우리는 자랑스럽게 Smm 대리점 패널로 봉사합니다. Smm 패널로서 우리는 터키에서 가장 빠르게 성장하고 터키의 국내 서비스 제조업체로 계속 봉사하고 있는 유일한 패널입니다. {{site['name']}} 멤버십이 없으면 지금 <a href="/signup"> 등록할 수 있습니다! </a>
+                                </div>
+                                <div class="container">
+                                    <div class="hb3-bottom">
+                                        <div class="hb3-item">
+                                            <div class="row">
+                                                <div class="hb3-icon col-auto align-self-center">
+                                                    <img src="https://cdn.mypanel.link/bfc127/pdj5yqb7fcf1op1p.png" alt="">
+                                                </div>
+                                                <div class="col align-self-center">
+                                                    <div class="hs3-title">
+                                                        빠른 서비스
+                                                    </div>
+                                                    <div class="hs3-text">
+                                                        일반적으로 시스템에서 빠르고 안정적인 서비스를 제공합니다.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hb3-item">
+                                            <div class="row">
+                                                <div class="hb3-icon col-auto align-self-center">
+                                                    <img src="https://cdn.mypanel.link/bfc127/wtqxikzs6i2hefwm.png" alt="">
+                                                </div>
+                                                <div class="col align-self-center">
+                                                    <div class="hs3-title">
+                                                        보안 결제
+                                                    </div>
+                                                    <div class="hs3-text">
+                                                        우리는 3D 보안 지불 시스템으로 사이트에서 수행하는 모든 지불의 보안을 보장합니다.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hb3-item">
+                                            <div class="row">
+                                                <div class="hb3-icon col-auto align-self-center">
+                                                    <img src="https://cdn.mypanel.link/bfc127/x6i731en1p2u85ia.png" alt="">
+                                                </div>
+                                                <div class="col align-self-center">
+                                                    <div class="hs3-title">
+                                                        양질의 서비스
+                                                    </div>
+                                                    <div class="hs3-text">
+                                                        우리는 부드럽고 빠른 서비스로 모든 고객을 하나로 모으며 솔루션 지향적으로 일합니다.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 d-none d-lg-block">
+                            <div class="hb3-img" style="position: relative!important">
+                                <img src="https://cdn.mypanel.link/bfc127/tqb3cb9dm01af26k.png" style="position: absolute" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="homebox-4">
+        <div class="container">
+            <div class="row">
+                <div class="hb4-head text-center">
+                    <h2>사용후기</h2>
+                    <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png" title="" alt="" />
+                </div>
+    
+                <div class="hs-area-owl owl-carousel owl-theme mt-5">
+    
+                    <div class="blog-item item">
+                        <a href="">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col align-self-center p-15">
+                                        <div class="blog-title">
+                                            <strong>dbwlva**님</strong>
+                                        </div>
+                                        <div class="blog-text">
+                                            <p class="fs-20 bold"> 
+                                                원하는 서비스만 있어<br />쉽고 유용하게 이용할 수 있어요.
+                                            </p>
+                                            <p>
+                                                제가 원하는 서비스만 잘 모아져 있어서<br />쉽고 유용하게 이용했습니다. <br />처음 사용해도 어렵지 않게 했네요ㅎㅎ<br />Instapt 최고입니다. 감사합니다!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!-- ./item -->
+    
+    
+    
+                    <div class="blog-item item">
+                        <a href="">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col align-self-center p-15">
+                                        <div class="blog-title">
+                                            <strong>nabli***님</strong>
+                                        </div>
+                                        <div class="blog-text">
+                                            <p class="fs-20 bold"> 
+                                                주문이 언제든지 자동으로
+                     처리돼서 편리하네요.
+                     
+                                            </p>
+
+                                            <p>
+                                                실시간 상담 서비스와 24시간 즉시
+                     가동되는 시스템 덕분에언제든지 편리하게 이용했습니다.
+                     Instapt 추천합니다~!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!-- ./item -->
+    
+                    <div class="blog-item item">
+                        <a href="">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col align-self-center p-15">
+                                        <div class="blog-title">
+                                            <strong>miloan***님</strong>
+                                        </div>
+                                        <div class="blog-text">
+                                            <p class="fs-20 bold">
+                                                주문이 언제든지 자동으로
+                     처리돼서 편리하네요.
+                                            </p>
+                                            <p>
+                                                실제 활동하고 있는 사람들이<br />제 계정으로 찾아와주니 정말 큰<br />효과를 봤습니다. 마케팅은 어려운거라<br />생각했는데 정말 쉽게 도움받아 이용<br />했네요. 감사합니다^^
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!-- ./item -->
+    
+                    <div class="blog-item item">
+                        <a href="">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col align-self-center p-15">
+                                        <div class="blog-title">
+                                            <strong>Sakil***님</strong>
+                                        </div>
+                                        <div class="blog-text">
+                                            <p class="fs-20 bold">
+                                                정말 놀라운 서비스입니다 <br />매우 빠르고 쉽게.
+                                            </p>
+                                            <p>
+                                                인스타그램 팔로워 10000명을 주문했는데 바로 받았습니다. <br> 놀라운 sns 서비스 랠리입니다.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!-- ./item -->
+    
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <!-- ### Content Area Start From Here -->

@@ -1,0 +1,117 @@
+
+    <!-- Content Area Start From Here -->
+
+    <div class="app-content">
+        <!-- page-content -->
+        <div class="container-fluid">
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <section class="app-side">
+                        <div class="row">
+                            <div class="col-md-12 col-12 services-text mb-4">
+
+                                <h3>내 계정</h3>
+                                <img src="https://cdn.mypanel.link/bfc127/7fres2uct89pkl9j.png">
+                                <br>
+                                {% if success %}
+                                <div class="alert alert-dismissible alert-success {% if site['rtl'] %} rtl-alert {% endif %}">
+                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                  {{ successText }}
+                                </div>
+                              {% endif %}
+                            </div>
+                            <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+                                <div class="d-card dc-blue">
+                                    <div class="d-card-body" id="dc-body">
+                                        <div class="form-group mb-4">
+                                            <label for="username" class="control-label">{{ lang('account.username') }}</label>
+                                            <input type="text" class="form-control" id="username" value="{{ user['username'] }}" readonly>
+                                          </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label>Email</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="text" value="{{ user['email'] }}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                              
+                                <!-- d-card end -->
+                                <div class="d-card">
+                                    <div class="d-card-body" id="dc-body">
+                                        <form  method="post" action="">
+                                            {% if error %}
+                                            <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                              {{ errorText }}
+                                            </div>
+                                          {% endif %}
+                                            <div class="form-group mb-4">
+                                                <label for="current" class="control-label">{{ lang('account.password.current') }}</label>
+                                                <input type="password" class="form-control" id="current" name="SettingsFrom[current_password]">
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="new" class="control-label">{{ lang('account.password.new') }}</label>
+                                                <input type="password" class="form-control" id="new" name="SettingsFrom[password]">
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label for="confirm" class="control-label">{{ lang('account.password.confirm') }}</label>
+                                                <input type="password" class="form-control" id="confirm" name="SettingsFrom[confirm_password]">
+                                            </div>
+                                            <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                                            <button class="btn btn-primary btn-lg btn-block mb-4">{{ lang('account.password.button') }}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- d-card end -->
+                            </div>
+
+                            <!-- col item end-->
+                            <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+    
+                                
+                                <div class="d-card dc-dblue">
+                                    <div class="d-card-body" id="dc2-body">
+                                        <form  action="" method="post">
+                                            <div class="form-group mb-4">
+                                                <label for="language" class="control-label">{{ lang('account.timezone') }}</label>
+                                                <select name="SettingsFrom[timezone]" id="timezone" class="form-control">
+                                                    {% for timezone,label in timezones %}
+                                                    <option value="{{timezone}}" {% if timezone == user['timezone'] %}selected{% endif %}>{{label}}</option>
+                                                  {% endfor %}
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                                            <button class="btn btn-primary btn-lg btn-block my-4">{{ lang('account.save') }}</button>
+                                        </form>
+                                    </div>
+                                </div>
+    
+                                <div class="d-card mt-4">
+                                    <div class="d-card-body" id="dc2-body">
+                                        <form {% if site['rtl'] %}class="rtl-form"{% endif %} action="{{ page['url'] }}/newkey" method="post">
+                                            <div class="form-group">
+                                              <label for="key" class="control-label">{{ lang('account.api_key') }}</label>
+                                              {% if user['is_generated_apikey'] %}
+                                                <input type="text" class="form-control" id="api_key" value="{{ user['apikey'] }}" readonly>
+                                              {% endif %}
+                                            </div>
+                                  
+                                            <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block">{{ lang('account.generate_key') }}</button>
+                                          </form>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- page-content end -->
+            </div>
+            <!-- app-content -->
+        </div>
+    </div>
+    
+    </div>
+    
