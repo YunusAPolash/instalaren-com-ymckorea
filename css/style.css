@@ -78,13 +78,12 @@ body.dark ::-webkit-scrollbar-thumb {
 }
 
 .header {
-    height: 100px;
-    position: absolute;
+    position: fixed;
     left: 0px;
     top: 0px;
     width: 100%;
     z-index: 1000;
-    margin-top: 30px;
+    background: #fff;
 }
 
 .header .site-icon-container {
@@ -2384,3 +2383,92 @@ body.dark .app-logo.mobiles .logo-lg, body.dark .dash-menu-btn img {
     transform: scale(1);
     background-color: #ffe812;
   }
+
+  .nav-link{
+      color: #232323;
+  }
+
+  /*Banner*/
+  #banner{
+    
+  }
+.banner_content h1,
+.banner_content p{
+      color: #000!important;
+  }
+.btn-home {
+    background: #00174b;
+    padding: 10px 20px;
+    margin-right: 10px;
+    color: #fff;
+    border: none;
+    margin-top: 15px;
+    border-radius: 15px;
+}
+.btn-home:hover{
+    color: #fff;
+}
+
+.cutstom_modal_btn {
+    width: 40px;
+    height: 40px;
+    background: red!important;
+    color: #fff;
+    border-radius: 10px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 99;
+}
+
+
+/* Testimonials */
+#testimonials{
+    padding: 10rem 0;
+    background: rgb(241, 241, 241);
+}
+.testi_title{
+    text-align: center;
+    font-size: 35px;
+    font-weight: 800;
+    margin-bottom: 50px;
+}
+.tesimonials_wrap{
+    display: flex;
+    gap: 40px;
+}
+.testimonials_item{
+    width: 95%;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+    box-shadow: 0 8px 13px #cfcfcf;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.slick-slide.slick-active .testimonials_item{
+  border: 1px solid #00174b;
+}
+#testimonialsSlick .slick-arrow{
+  display: none!important;
+}
+.content p:first-child{
+    margin-bottom: 25px;
+}
+
+.fs-20{
+    font-size: 25px;
+}
+.bold{
+    font-weight: 800;
+}
+.name p{
+    font-size: 18px;
+    font-weight: 800;
+    color: rgb(179, 179, 179);
+}

@@ -16,15 +16,15 @@
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
-        <meta property="og:url" content="https://sns4u.kr/">
-        <meta property="og:title" content="SNS4u">
+        <meta property="og:url" content="https://instalaren.kr/">
+        <meta property="og:title" content="instalaren">
         <meta property="og:description" content="">
         <meta property="og:image" content="https://cdn.mypanel.link/egmvxo/c118ygjlsanngzdw.png">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content="https://sns4u.kr/">
-        <meta property="twitter:title" content="SNS4u">
+        <meta property="twitter:url" content="https://instalaren.kr/">
+        <meta property="twitter:title" content="instalaren">
         <meta property="twitter:description" content="">
         <meta property="twitter:image" content="https://cdn.mypanel.link/egmvxo/c118ygjlsanngzdw.png">
 
@@ -39,12 +39,15 @@
 		{% for style in site['styles'] %}
 			<link rel="stylesheet" type="text/css" href="{{ style['href'] }}">
 		{% endfor %}
-
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.2/umd/popper.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	</head>
 	<body {% if user['auth'] %} {% else %} class="home-body" {% endif %}>
@@ -138,9 +141,9 @@
 		{% else %}
         <div class="header">
             <div class="container">
-                <div class="row" style="height: 99px;">
-                    <div class="col-auto align-self-center">
-                        <div class="row">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg py-2">
                             <div class="col align-self-center">
                                 <div class="site-name">
                                     <a href="/">
@@ -152,33 +155,44 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="head-menu">
-                            <div class="row">
-                                <div class="col text-lg-right mh-fullw">
-                                    <div class="header-menu">
-                                        <ul>
-                                            <li>
-                                                <a href="/services">가격표</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-auto align-self-center mh-fullw">
-                                    <a href="/signup" class="btn btn-primary" style="height:auto;padding: 10px 15px;">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fal fa-bars"></i>
+                            </button>
+                          
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                              <ul class="navbar-nav ml-auto">
+                                {% for menu in site['menu'] %}
+
+                                    {% if menu['link'] == '/signup' %}
+                                    {% elseif menu['link'] == '/'%}
+                                    <li class="nav-item{% if menu['active'] %}active{% endif %}">
+                                        <a type="button" data-toggle="modal" data-target="#staticBackdrop" class="nav-link">
+                                            {% if menu['icon'] %}
+                                                <i class="navbar-icon {{ menu['icon'] }}"></i>
+                                            {% endif %}
+                                            {{ menu['name'] }}
+                                        </a>
+                                    </li>
+                                    {% else %}
+                                    <li class="nav-item{% if menu['active'] %}active{% endif %}">
+                                        <a href="{{ menu['link'] }}" {% if menu['external'] %} target="_blank" {% endif %} class="nav-link">
+                                            {% if menu['icon'] %}
+                                                <i class="navbar-icon {{ menu['icon'] }}"></i>
+                                            {% endif %}
+                                            {{ menu['name'] }}
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if menu['link'] == '/signup' %}
+                                    <a href="/signup" class="btn btn-primary ml-2" style="height:auto;padding: 10px 15px;">
                                         <i class="fas fa-user mr-2"></i>
                                         등록하다
                                     </a>
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
+                              </ul>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-auto for-mobile align-self-center">
-                        <div class="home-menu-btn py-4" onclick="homeMenuToggle()" style="color: #333D4C;">
-                            <i class="fas fa-bars fa-2x"></i>
-                        </div>
+                          </nav>
                     </div>
                 </div>
             </div>
@@ -235,7 +249,75 @@
             </div>
         </footer>
         {% endif %}
+{% if user['auth'] %}
+{% else %}
 
+<div class="modal fade " id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close cutstom_modal_btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="row">
+                  <div class="col-md-6">
+                      <h3>Login now</h3>
+                      <p>Enter your username and password to login user panel</p>
+                      <div class="login_wrap">
+                        <form {% if site['rtl'] %}class="rtl-form"{% endif %} method="post" action="{{ page['url'] }}">
+                            {% if error %}
+                              <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ errorMessage }}
+                              </div>
+                            {% endif %}
+                  
+                            {% if success %}
+                              <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{successMessage}}
+                              </div>
+                            {% endif %}
+                  
+                            <div class="form-group">
+                            <label for="username">{{ lang('signup.username') }}</label>
+                              <input type="text" class="form-control" id="username" name="LoginForm[username]" placeholder="{{ lang('signup.username') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">{{lang('signup.password')}}</label>
+                              <input type="password" class="form-control" id="password" name="LoginForm[password]" placeholder="{{lang('signup.password')}}">
+                            </div>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox"  name="LoginForm[remember]" value="1" id="remember">{{lang('signin.remember_me')}}
+                              </label>
+                            </div>
+                  
+                            {% if captcha %}
+                              {{ captchaCode }}
+                            {% endif %}
+                  
+                            <input type="hidden" name="_csrf" value="{{csrftoken}}">
+                            <button type="submit" class="btn btn-primary btn-block w-100 Login_button">{{ lang('signin.button') }}</button>
+
+                            {% if site['resetPassword'] %}
+                            <a href="{{ page_url('resetpassword') }}" class="mt-2 d-block w-100 text-center">{{ lang('signin.reset_password') }}</a>
+                          {% endif %}
+                          
+                            {% if registration %}
+                              <span class="mt-2 d-block text-center">{{ lang('signin.text') }} <a href="{{ page_url('signup') }}">{{ lang('signup.title') }}</a></span>
+                            {% endif %}
+                          </form>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <img src="https://cdn.mypanel.link/2salm4/4qlrb4l38wo2fh9y.png" class="img-fluid" alt="">
+                  </div>
+              </div>
+        </div>
+      </div>
+ 
+{% endif %}
     <!-- ## Footer start -->
 		{% for script in site['scripts'] %}
 			<script type="text/javascript" {% if script['src'] %} src="{{ script['src'] }}" {% endif %}>
@@ -250,34 +332,64 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-    <!-- owl -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
     
-<script>
-
-    if ($('.hs-area-owl').length) {
-        $('.hs-area-owl').owlCarousel({
-            loop:true,
-            margin: 25,
-            nav: false,
-            dots: true,
-            autoplay: 5000,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:2
-                },
-                1000:{
-                    items:3
-                }
-            }
-        });
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            
+$('#testimonialsSlick').slick({
+dots: false,
+infinite: true,
+speed: 300,
+autoplay: true,
+slidesToShow: 3,
+slidesToScroll: 1,
+responsive: [
+  {
+    breakpoint: 1024,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll:1
     }
-</script>
+  },
+  {
+    breakpoint: 600,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 1
+    }
+  },
+  {
+    breakpoint: 480,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1
+    }
+  }
+  // You can unslick at a given breakpoint now by adding:
+  // settings: "unslick"
+  // instead of a settings object
+]
+});
+        
+    </script>    
+    <!-- owl -->
 
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+			<script>
+				AOS.init();
+			  </script>
+     
+     {% if user['auth'] %}
+     {% else %}
+        {% if error %}
+        <script>
+            $(document).ready(function(){
+                $('#staticBackdrop').modal('show');
+            });
+        </script>
+        {% endif %}
+     {% endif %}
 	</body>
 </html>
